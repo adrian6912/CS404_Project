@@ -3,19 +3,17 @@ class Vehicle:
         self.ID = ID
         self.vType = vType
         self.zipcode = zipcode
-        self.availability = availability
-        
-    def get_info(self):
-        '''Import the information for this particular vehicle from a file'''
-        
+        self.availability = availability       
 
 class Request:
-    ID = 0
-    type = 0
-    zipcode = 00000
+    def __init__(self, ID, vType, zipcode):
+        self.ID = ID
+        self.vType = vType
+        self.zipcode = zipcode
     
-class distance:
-    zipcode1 = 00000
-    zipcode2 = 00000
-    distance = 0
+class Distance:
+    def __init__(self, zip1, zip2, distance):
+        self.zip1 = zip1
+        self.zip2 = zip2
+        self.distance = distance
     
