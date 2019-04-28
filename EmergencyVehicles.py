@@ -1,5 +1,5 @@
 class Vehicle:
-    def __init__(self, ID, vType, zipcode, availability=True):
+    def __init__(self, ID=0, vType=0, zipcode=00000, availability=True):
         self.ID = ID
         self.vType = vType
         self.zipcode = zipcode
