@@ -3,7 +3,11 @@ class Vehicle:
         self.ID = ID
         self.vType = vType
         self.zipcode = zipcode
-        self.availability = availability       
+        self.availability = availability  
+        
+    def relocate(self, newZipcode):
+        self.zipcode = newZipcode
+        return
 
 class Request:
     def __init__(self, ID, vType, zipcode):

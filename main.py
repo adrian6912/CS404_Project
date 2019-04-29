@@ -43,7 +43,9 @@ def getDistances():
     return distanceList
 
 def calcDist(location1, location2):
-    if location1 == location2:
+    if (location1 == 00000 or location2 == 00000):
+        return 500
+    elif location1 == location2:
         return 0
     elif location1 > location2:
         temp = copy(location2)
@@ -63,22 +65,34 @@ def findClosest(request):
     lowestDist = V()
     for vehicle in vehicles:
         if vehicle.vType == request.vType:
-            if (calcDist(vehicle.zipcode, request.zipcode) < calcDist(lowestDist.zipcode, request.zipcode)):
-                
-                pass
-            
+            newDist = calcDist(vehicle.zipcode, request.zipcode)
+            oldDist = calcDist(lowestDist.zipcode, request.zipcode)
+            if (newDist < oldDist):
+                lowestDist = vehicle
+            if (calcDist(lowestDist.zipcode, request.zipcode)) == 0:
+                return [lowestDist, 0]
+    finalDistance = calcDist(lowestDist.zipcode, request.zipcode)
+    return [lowestDist, finalDistance]
+
 
 if __name__ == '__main__':
     vehicles = getVehicles()
     requests = getRequest()
     distances = getDistances()
-    print(vehicles[0])
-    
-    
-    
-    
-    
-    
+    for r in requests:
+        j = findClosest(r)
+        closest, dist = j[0], j[1]
+        print(r.ID, r.vType, r.zipcode, closest.ID, dist)
+        closest.relocate(r.zipcode)
+
+
+
+
+
+
+
+
+
     
     
     
