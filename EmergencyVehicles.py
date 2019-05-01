@@ -1,3 +1,5 @@
+from copy import copy
+
 class Vehicle(object):
     def __init__(self, ID=0, vType=0, zipcode=00000, availability=True):
         self.ID = ID
@@ -30,12 +32,19 @@ class EmerVehicles(object):
         self.distances = self.getDistances(distancesFile)
         self.requests = self.getRequest(requestsFile)
         
+    def printOutput(self):
+        file = open("ProcessedRequests.txt", "r")
+        for line in file:
+            print(line)
         
     def processRequests(self):
+        '''Processes requests and stores them in a .txt file'''
+        output = open("ProcessedRequests.txt", "w+")
         for r in self.requests:
             j = self.findClosest(r)
             closest, dist = j[0], j[1]
-            print(r.ID, r.vType, r.zipcode, closest.ID, dist)
+            string = "{} {} {} {} {} \n".format(r.ID, r.vType, r.zipcode, closest.ID, dist)
+            output.write(string)
             closest.relocate(r.zipcode)
         
     def getVehicles(self, file):
@@ -88,7 +97,7 @@ class EmerVehicles(object):
     
     def calcDist(self, location1, location2):
         '''Returns the distance between two zipcodes'''
-        from copy import copy
+        
         if (location1 == 00000 or location2 == 00000):
             return 500
         elif location1 == location2:
